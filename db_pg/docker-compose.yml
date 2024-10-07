@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: db_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  web:
+    build: .
+    command: bundle exec rails s -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3002:3002"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=db_dev
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+volumes:
+  db_data:
