@@ -1,15 +1,21 @@
-Build the image ( change the ruby and rails version in Dockerfile if needed )
-
-## step 1. Build this rails generator
-
-rg is the tag name of the builded image, change it if you like
+## Create the rails project
 
 ```
-$ docker build -t rg .
+$ ./create_project.sh
+$ cd rails_app
+$ docker compose up --build
 ```
 
-## step 2. Create a project:
+Run cmd in app
 
 ```
-$ docker run --rm -it -v ${PWD}/:/app rg rails new {your rails project name} --skip-bundle
+$ docker compose exec rails g scaffold task name:string
+$ docker compose exec rake db:migrate
+```
+
+For delete the named volumes of db or re-create db
+
+```
+$ docker compose down -v
+$ docker compose up --build
 ```

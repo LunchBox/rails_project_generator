@@ -9,10 +9,11 @@ services:
       POSTGRES_PASSWORD: postgres
   app:
     build: .
-    # command: bundle install && bundle exec rails -b '0.0.0.0'
-    command: /bin/bash
+    command: ./bin/rails s -b 0.0.0.0
+    # command: ./bin/rails secret
+    # command: ls
     volumes:
-      - ./rails_app:/app
+      - .:/app
     ports:
       - "7077:3000"
     depends_on:
