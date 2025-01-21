@@ -24,6 +24,6 @@ WORKDIR /app
 
 RUN gem install rails -v 8.0.1
 
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY --chown=$UNAME Gemfile /app/Gemfile
+COPY --chown=$UNAME Gemfile.lock /app/Gemfile.lock
 RUN bundle install
