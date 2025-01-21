@@ -1,25 +1,21 @@
-
-Build the image ( change the ruby and rails version in Dockerfile if needed )
-
-```
-$ docker-compose build
-```
-
-Create a project:
+## Create the rails project
 
 ```
-$ docker-compose run app rails new ${your_project_name} --skip-bundle
+$ ./create_project.sh
+$ cd rails_app
+$ docker compose up --build
 ```
 
-
-The command above will create a new container, use these command to remove them
-
-```
-$ docker-compose down && docker-compose rm
-```
-
-The created project's owner is root by default, you have to change the owner.
+Run cmd in app
 
 ```
-$ sudo chown user.user ${your_project_name} -R
+$ docker compose exec rails g scaffold task name:string
+$ docker compose exec rake db:migrate
+```
+
+For delete the named volumes of db or re-create db
+
+```
+$ docker compose down -v
+$ docker compose up --build
 ```

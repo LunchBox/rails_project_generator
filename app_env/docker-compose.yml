@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: db_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  app:
+    build: .
+    command: ./bin/rails s -b 0.0.0.0
+    # command: ./bin/rails secret
+    # command: ls
+    volumes:
+      - .:/app
+    ports:
+      - "7077:3000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=db_dev
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+volumes:
+  db_data:

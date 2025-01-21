@@ -15,5 +15,8 @@ RUN apt install -y nodejs
 
 WORKDIR /app
 
-RUN gem install rails -v 8.0.1
+RUN gem install rails -v 7.2.1
 
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
+RUN bundle install
